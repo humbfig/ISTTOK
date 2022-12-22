@@ -13,7 +13,7 @@ from datetime import datetime
 import matplotlib.pyplot as plt
 
 
-class ISTTOK:
+class isttok:
     
     host = 'baco.ipfn.ist.utl.pt'
     port = 8888
@@ -22,20 +22,20 @@ class ISTTOK:
     def __init__(self, channel='', shot_number=None):
         self.channel = channel
         self.shot_number = shot_number
-        if ISTTOK.client is None:
-            ISTTOK.client = SDASClient(ISTTOK.host, ISTTOK.port)
+        if isttok.client is None:
+            isttok.client = SDASClient(isttok.host, isttok.port)
         self.tbs = None
         self.tzero = None
-        self.data = ISTTOK.get_data(self)
+        self.data = isttok.get_data(self)
 
     def last_shot_number(self):
-        last_shot = int(ISTTOK.client.searchMaxEventNumber('0x0000'))
+        last_shot = int(isttok.client.searchMaxEventNumber('0x0000'))
         return last_shot
 
     def get_data(self):
         if self.shot_number is (None or 0):
-            self.shot_number = ISTTOK.LastShotNumber(self)
-        dataStruct = ISTTOK.client.getData(self.channel, '0x0000', self.shot_number)[0]
+            self.shot_number = isttok.LastShotNumber(self)
+        dataStruct = isttok.client.getData(self.channel, '0x0000', self.shot_number)[0]
         data = dataStruct.getData()
         tStart = dataStruct.getTStart().getTimeInMicros()
         tEnd = dataStruct.getTEnd().getTimeInMicros()

@@ -1,5 +1,5 @@
 
-from dataISTTOK import ISTTOK
+from isttok import isttok
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -26,7 +26,7 @@ def compute_DC(channel):
 
 mirn = []
 for channel in mirnov_channels:
-    mirn.append(ISTTOK(channel=channel, shot_number=shot_number))
+    mirn.append(isttok(channel=channel, shot_number=shot_number))
 
 DCs = []
 for channel in mirn:
