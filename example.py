@@ -6,6 +6,13 @@ import matplotlib.pyplot as plt
 shot_number = 0
 # 0 means last shot in database
 
+#for john
+pmt_channel = 'PCIE_ATCA_ADC_16.BOARD_3.CHANNE_024'
+pmt = isttok(channel=pmt_channel, shot_number=shot_number)
+pmt_channel = 'PCIE_ATCA_ADC_16.BOARD_3.CHANNE_024'
+pmt.plot_data()
+pmt.save_data('pmt', ti=32, tf=46)
+
 # These are the channels uniqueIDs.
 rfa_channel = 'PCIE_ATCA_ADC_16.BOARD_3.CHANNEL_023'
 sweep_channel = 'PCIE_ATCA_ADC_16.BOARD_3.CHANNEL_018'
@@ -13,6 +20,7 @@ sweep_channel = 'PCIE_ATCA_ADC_16.BOARD_3.CHANNEL_018'
 # This will create instances of the isttok object that contains all data from the channels.
 rfa = isttok(channel=rfa_channel, shot_number=shot_number)
 sweep = isttok(channel=sweep_channel, shot_number=shot_number)
+pmt = isttok(channel=pmt_channel, shot_number=shot_number)
 
 #This will plot the data in a zoomable window.
 rfa.plot_data()
