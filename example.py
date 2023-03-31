@@ -9,7 +9,6 @@ shot_number = 0
 #for john
 pmt_channel = 'PCIE_ATCA_ADC_16.BOARD_3.CHANNE_024'
 pmt = isttok(channel=pmt_channel, shot_number=shot_number)
-pmt_channel = 'PCIE_ATCA_ADC_16.BOARD_3.CHANNE_024'
 pmt.plot_data()
 pmt.save_data('pmt', ti=32, tf=46)
 
