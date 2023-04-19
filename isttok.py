@@ -51,7 +51,7 @@ class isttok:
         tevent = TimeStamp(tstamp=events.get('tstamp')).getTimeInMicros()
         self.tzero = datetime.fromtimestamp(tevent / 1e6, tz=None)
         delay = tStart - tevent
-        timeVector = np.linspace(delay, delay + self.tbs * (len_d - 1), len_d)
+        timeVector = np.linspace(delay, delay + self.tbs * (len_d - 1), len_d) / 1e3
         return np.array([timeVector, data]).T
 
     def save_data(self, name_string='', ti=None, tf=None):
@@ -60,21 +60,37 @@ class isttok:
         else:
             filename = str(self.shot_number) + '.' + name_string + '.csv'
         if ti != None:
-            start_index = np.abs(self.data[:, 0] / 1e3 - ti).argmin()
+            start_index = np.abs(self.data[:, 0] - ti).argmin()
         else:
             start_index = 0
         if tf != None:
-            end_index = np.abs(self.data[:, 0] / 1e3 - tf).argmin()
+            end_index = np.abs(self.data[:, 0] - tf).argmin()
         else:
             end_index = -1
         segmented_data = self.data[start_index:end_index, :]
-        np.savetxt(filename, segmented_data, delimiter=",")
+        np.savetxt(filename, segmented_data, delimiter="\t")
         # filename = str(self.shotN) + '.' + self.channel + '.xls'
         # print(filename)
         # pd.DataFrame(self.data).to_excel(filename, header = ['time', self.channel], index = False)
 
+    def save_data_npy(self, name_string='', ti=None, tf=None):
+        if name_string == '':
+            filename = str(self.shot_number) + '.' + self.channel + '.npy'
+        else:
+            filename = str(self.shot_number) + '.' + name_string + '.npy'
+        if ti != None:
+            start_index = np.abs(self.data[:, 0] - ti).argmin()
+        else:
+            start_index = 0
+        if tf != None:
+            end_index = np.abs(self.data[:, 0] - tf).argmin()
+        else:
+            end_index = -1
+        segmented_data = self.data[start_index:end_index, :]
+        np.save(filename, segmented_data, allow_pickle=False, fix_imports=False)
+
     def plot_data(self):
-        plt.plot(self.data[:, 0] / 1e3, self.data[:, 1])
+        plt.plot(self.data[:, 0], self.data[:, 1])
         plt.xlabel('time (ms)')
         plt.ylabel('')
         plt.title(self.channel)
