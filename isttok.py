@@ -69,9 +69,6 @@ class isttok:
             end_index = -1
         segmented_data = self.data[start_index:end_index, :]
         np.savetxt(filename, segmented_data, delimiter="\t")
-        # filename = str(self.shotN) + '.' + self.channel + '.xls'
-        # print(filename)
-        # pd.DataFrame(self.data).to_excel(filename, header = ['time', self.channel], index = False)
 
     def save_data_npy(self, name_string='', ti=None, tf=None):
         if name_string == '':
