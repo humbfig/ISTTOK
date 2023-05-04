@@ -1,0 +1,5 @@
+from isttok import isttok
+
+instance = isttok()
+channels_found = instance.find_channels_name('current')
+print(channels_found)
